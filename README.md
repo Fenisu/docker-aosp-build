@@ -18,6 +18,7 @@ To run the container:
 Extras
 ------
 Inside the container you will get greeted by the MOTD:
+
     ======================================================================
     = Docker AOSP build environment based on Ubuntu 14.04 with openjdk-7 =
     ======================================================================
