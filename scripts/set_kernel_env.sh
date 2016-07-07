@@ -31,15 +31,16 @@ main(){
       echo "alias mkbootimg=/tools/bootimg-tools/mkbootimg/mkbootimg" >> /kernel/.kernel.env
       echo "alias unmkbootimg=/tools/bootimg-tools/mkbootimg/unmkbootimg" >> /kernel/.kernel.env
     fi
-  fi
-  echo -n "[*] Is it already installed? [Y/n] "
-  read bitools
-  if [[ $bitools == "Y" || $bitools == "y" || $bitools == "" ]]; then
-    mkb=$(find /tools -type f -name 'mkbootimg' -print0)
-    unmkb=$(find /tools -type f -name 'unmkbootimg' -print0)
-    if [[ $mkb != "" && $unmkb != "" ]]; then
-      echo "alias mkbootimg=${mkb}" >> /kernel/.kernel.env
-      echo "alias unmkbootimg=${unmkb}" >> /kernel/.kernel.env
+  else
+    echo -n "[*] Is it already installed? [Y/n] "
+    read bitools
+    if [[ $bitools == "Y" || $bitools == "y" || $bitools == "" ]]; then
+      mkb=$(find /tools -type f -name 'mkbootimg' -print0)
+      unmkb=$(find /tools -type f -name 'unmkbootimg' -print0)
+      if [[ $mkb != "" && $unmkb != "" ]]; then
+        echo "alias mkbootimg=${mkb}" >> /kernel/.kernel.env
+        echo "alias unmkbootimg=${unmkb}" >> /kernel/.kernel.env
+      fi
     fi
   fi
   echo "[*] Now run:"
