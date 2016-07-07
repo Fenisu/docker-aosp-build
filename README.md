@@ -38,7 +38,10 @@ Inside the container you will be greeted by the MOTD:
 
 Two help scripts are available so you can smoothly build what you need:
 
-run help_aosp.sh
+    help_aosp.sh
+    
+
+
     ======================================================================
     = Docker AOSP build environment based on Ubuntu 14.04 with openjdk-7 =
     ======================================================================
@@ -70,7 +73,10 @@ run help_aosp.sh
 
 The script download-nexus-binaries.sh will help you download the binary blobs / drivers from the nexus website.
 
-run help_kernel.sh
+    help_kernel.sh
+    
+
+
     ======================================================================
     = Docker AOSP build environment based on Ubuntu 14.04 with openjdk-7 =
     ======================================================================
