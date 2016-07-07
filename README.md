@@ -38,10 +38,8 @@ Inside the container you will be greeted by the MOTD:
 
 Two help scripts are available so you can smoothly build what you need:
 
-    help_aosp.sh
+Script help_aosp.sh:
     
-
-
     ======================================================================
     = Docker AOSP build environment based on Ubuntu 14.04 with openjdk-7 =
     ======================================================================
@@ -71,12 +69,10 @@ Two help scripts are available so you can smoothly build what you need:
     - lunch
     - make -j N
 
-The script download-nexus-binaries.sh will help you download the binary blobs / drivers from the nexus website.
 
-    help_kernel.sh
+
+Script help_kernel.sh:
     
-
-
     ======================================================================
     = Docker AOSP build environment based on Ubuntu 14.04 with openjdk-7 =
     ======================================================================
@@ -117,11 +113,15 @@ and then:
 
 To run these containers, it should be instead:
 
-    docker run -v /path/to/repo1:/aosp -v /path/to/.ccache:/ccache -i -t aosp:mako /bin/bash
+    docker run -v /path/to/repo1:/aosp -v /path/to/kernel_mako:/kernel \
+               -v /path/to/.ccache:/ccache -v /path/to/tools:/tools \
+               -i -t aosp:mako /bin/bash
 
 and:
 
-    docker run -v /path/to/repo2:/aosp -v /path/to/.ccache:/ccache -i -t aosp:dragon /bin/bash
+    docker run -v /path/to/repo2:/aosp -v /path/to/kernel_dragon:/kernel \
+               -v /path/to/.ccache:/ccache -v /path/to/tools:/tools \
+               -i -t aosp:dragon /bin/bash
 
 
 
