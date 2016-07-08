@@ -14,18 +14,18 @@ main(){
   for gcc_index in "${!gcc_tools[@]}"; do
     echo "- [$gcc_index] ${gcc_tools[$gcc_index]}"
   done
-  echo -n "[*] What version do you want to use? [0] " 
-  read gccversion
-  if [[ $gccversion == "" ]]; then
-    answer=0
+  echo -n "[*] What version do you want to use? [0] "
+  read gcc_version
+  if [[ $gcc_version == "" ]]; then
+    gcc_version=0
   fi
   echo -n "[*] Write the architecture for your ARCH env: [arm] "
   read archbuild
   if [[ $archbuild == "" ]]; then
     archbuild=arm
   fi
-  echo "export CC=${gcc_tools[$answer]%gcc}" > /kernel/.kernel.env
-  echo "export CROSS_COMPILE=${gcc_tools[$answer]%gcc}" >> /kernel/.kernel.env
+  echo "export CC=${gcc_tools[$gcc_version]%gcc}" > /kernel/.kernel.env
+  echo "export CROSS_COMPILE=${gcc_tools[$gcc_version]%gcc}" >> /kernel/.kernel.env
   echo "export ARCH=$archbuild" >> /kernel/.kernel.env
   echo "export SUBARCH=$archbuild" >> /kernel/.kernel.env
   echo -n "[*] Do you need to install bootimg-tools? [y/N] "
