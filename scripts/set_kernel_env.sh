@@ -10,7 +10,7 @@ main(){
   gcc_tools=()
   while IFS= read -d $'\0' -r file; do
     gcc_tools=("${gcc_tools[@]}" "$file");
-  done < <(find /tools -type f \( -name 'arm-eabi-gcc' -or -name 'arm-linux-androideabi-gcc' \) -print0)
+  done < <(find /tools -type f \( -name 'arm-eabi-gcc' -or -name 'arm-linux-androideabi-gcc' -or -name '*-linux-android-gcc' \) -print0)
   for gcc_index in "${!gcc_tools[@]}"; do
     echo "- [$gcc_index] ${gcc_tools[$gcc_index]}"
   done
@@ -19,10 +19,15 @@ main(){
   if [[ $gccversion == "" ]]; then
     answer=0
   fi
+  echo -n "[*] Write the architecture for your ARCH env: [arm] "
+  read archbuild
+  if [[ $archbuild == "" ]]; then
+    archbuild=arm
+  fi
   echo "export CC=${gcc_tools[$answer]%gcc}" > /kernel/.kernel.env
   echo "export CROSS_COMPILE=${gcc_tools[$answer]%gcc}" >> /kernel/.kernel.env
-  echo "export ARCH=arm" >> /kernel/.kernel.env
-  echo "export SUBARCH=arm" >> /kernel/.kernel.env
+  echo "export ARCH=$archbuild" >> /kernel/.kernel.env
+  echo "export SUBARCH=$archbuild" >> /kernel/.kernel.env
   echo -n "[*] Do you need to install bootimg-tools? [y/N] "
   read bitools
   if [[ $bitools == "y" || $bitools == "Y" ]]; then
