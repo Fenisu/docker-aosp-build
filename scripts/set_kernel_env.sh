@@ -26,8 +26,8 @@ main(){
   fi
   echo "export CC=${gcc_tools[$gcc_version]%gcc}" > /kernel/.kernel.env
   echo "export CROSS_COMPILE=${gcc_tools[$gcc_version]%gcc}" >> /kernel/.kernel.env
-  echo "export ARCH=$archbuild" >> /kernel/.kernel.env
-  echo "export SUBARCH=$archbuild" >> /kernel/.kernel.env
+  echo "export ARCH=${archbuild}" >> /kernel/.kernel.env
+  echo "export SUBARCH=${archbuild}" >> /kernel/.kernel.env
   echo -n "[*] Do you need to install bootimg-tools? [y/N] "
   read bitools
   if [[ $bitools == "y" || $bitools == "Y" ]]; then
@@ -40,8 +40,40 @@ main(){
     echo -n "[*] Is it already installed? [Y/n] "
     read bitools
     if [[ $bitools == "Y" || $bitools == "y" || $bitools == "" ]]; then
-      mkb=$(find /tools -type f -name 'mkbootimg' -print0)
-      unmkb=$(find /tools -type f -name 'unmkbootimg' -print0)
+      mkb=()
+      while IFS= read -d $'\0' -r file; do
+        mkb=("${mkb[@]}" "$file");
+      done < <(find /tools -type f -name 'mkbootimg' -print0)
+      if [[ ${#mkb[@]} -ne 1 ]]; then
+        for mkb_index in "${!mkb[@]}"; do
+          echo "- [$mkb_index] ${mkb[$mkb_index]}"
+        done
+        echo -n "[*] What mkbootimg do you want to use? [0] "
+        read mkb_version
+        if [[ $mkb_version == "" ]]; then
+          $mkb_version=0
+        fi
+      else
+        mkb_version=0
+      fi
+      mkb=${mkb[$mkb_version]}
+      unmkb=()
+      while IFS= read -d $'\0' -r file; do
+        unmkb=("${unmkb[@]}" "$file");
+      done < <(find /tools -type f -name 'unmkbootimg' -print0)
+      if [[ ${#unmkb[@]} -ne 1 ]]; then
+        for unmkb_index in "${!unmkb[@]}"; do
+          echo "- [$unmkb_index] ${unmkb[$unmkb_index]}"
+        done
+        echo -n "[*] What mkbootimg do you want to use? [0] "
+        read unmkb_version
+        if [[ $unmkb_version == "" ]]; then
+          $unmkb_version=0
+        fi
+      else
+        unmkb_version=0
+      fi
+      unmkb=${unmkb[$unmkb_version]}
       if [[ $mkb != "" && $unmkb != "" ]]; then
         echo "alias mkbootimg=${mkb}" >> /kernel/.kernel.env
         echo "alias unmkbootimg=${unmkb}" >> /kernel/.kernel.env
