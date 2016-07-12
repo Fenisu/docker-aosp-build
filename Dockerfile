@@ -21,6 +21,8 @@ RUN apt-get -qq update && apt-get -qqy upgrade && apt-get install -y openjdk-7-j
   zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
   lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache \
   libgl1-mesa-dev libxml2-utils xsltproc python-networkx \
+  libssl-dev trousers libyaml-dev libyaml-0-2 vboot-utils pkg-config \
+  liblzma-dev cgpt uuid-dev device-tree-compiler \
   unzip nano wget \
   software-properties-common python-software-properties bc \
   && rm -rf /var/lib/apt/lists/*
