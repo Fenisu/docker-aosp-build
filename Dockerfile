@@ -16,7 +16,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # All apt-get in one RUN
 # https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#apt-get
-RUN apt-get -qq update && apt-get -qqy upgrade && apt-get install -y openjdk-7-jdk \
+RUN apt-get -qq update && apt-get -qqy upgrade && apt-get install -y openjdk-8-jdk \
+  bison make zlib1g-dev:i386 zip \  
   git-core gnupg flex bison gperf build-essential \
   zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
   lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache \
@@ -35,7 +36,8 @@ VOLUME ["/aosp", "/ccache", "/tools", "/kernel"]
 ENV USE_CCACHE 1
 ENV CCACHE_DIR /ccache
 
-COPY scripts/download-nexus-binaries.sh /usr/local/bin/download-nexus-binaries.sh 
+COPY scripts/set_sony_patches.sh /usr/local/bin/set_sony_patches.sh
+COPY scripts/set_sony_repos.sh /usr/local/bin/set_sony_repos.sh
 COPY scripts/help_aosp.sh /usr/local/bin/help_aosp.sh 
 COPY scripts/help_kernel.sh /usr/local/bin/help_kernel.sh 
 COPY scripts/set_kernel_env.sh /usr/local/bin/set_kernel_env.sh 
@@ -49,6 +51,7 @@ RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
 ======================================================================\n\
 \n\
 For more info check: https://source.android.com/source/\n\
+For specific sony info: http://developer.sonymobile.com/open-devices/aosp-build-instructions/how-to-build-aosp-nougat-for-unlocked-xperia-devices/
 \n\
 To build AOSP, use:\n\
 - help_aosp.sh\n\
