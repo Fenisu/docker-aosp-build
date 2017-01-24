@@ -2,7 +2,8 @@
 
 mkdir -p /aosp/.repo/local_manifests/
 
-echo """<?xml version="1.0" encoding="UTF-8"?>
+echo """
+<?xml version="1.0" encoding="UTF-8"?>
 
 <manifest>
 <remote name="sony" fetch="https://github.com/sonyxperiadev/" />
@@ -46,4 +47,5 @@ echo """<?xml version="1.0" encoding="UTF-8"?>
 <project path="vendor/sony-oss/timekeep" name="timekeep" groups="device" remote="sony" revision="master" />
 <project path="packages/apps/ExtendedSettings" name="packages_apps_ExtendedSettings" groups="device" remote="sony" revision="master" />
 <project path="packages/apps/FMRadio" name="packages-apps-FMRadio" groups="device" remote="sony" revision="master" />
-</manifest>""" >> /aosp/.repo/local_manifests/sony.xml
+</manifest>
+""" >> /aosp/.repo/local_manifests/sony.xml
