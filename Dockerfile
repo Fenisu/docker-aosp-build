@@ -1,5 +1,5 @@
-# We start with our base OS, Ubuntu 14.04
-FROM ubuntu:14.04
+# We start with our base OS, Ubuntu 16.04
+FROM ubuntu:16.04
 
 # This Dockerfile is HEAVILY based on David Keppler "dave@kepps.net" version
 # old mantainer Mike Wallace "mike.wallace@risesoftware.com"
@@ -7,17 +7,17 @@ MAINTAINER Ignacio Quezada "dreamtrick@gmail.com
 
 # Add the repositories needed for the packages we're going to install
 # These are added to the Ubuntu base, not your host operating system. As are all the packages.
-RUN echo "deb http://archive.ubuntu.com/ubuntu trusty multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src http://archive.ubuntu.com/ubuntu trusty multiverse" >> /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ trusty-security multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src http://archive.ubuntu.com/ubuntu/ trusty-security multiverse" >> /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu xenial multiverse" >> /etc/apt/sources.list
+RUN echo "deb-src http://archive.ubuntu.com/ubuntu xenial multiverse" >> /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu/ xenial-security multiverse" >> /etc/apt/sources.list
+RUN echo "deb-src http://archive.ubuntu.com/ubuntu/ xenial-security multiverse" >> /etc/apt/sources.list
 
 ENV DEBIAN_FRONTEND noninteractive
 
 # All apt-get in one RUN
 # https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#apt-get
 RUN apt-get -qq update && apt-get -qqy upgrade && apt-get install -y openjdk-8-jdk \
-  bison make zlib1g-dev:i386 zip \  
+  bison make lib32z1 lib32z1-dev zlib1g-dev:i386 zip \
   git-core gnupg flex bison gperf build-essential \
   zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
   lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache \
@@ -51,7 +51,7 @@ RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
 ======================================================================\n\
 \n\
 For more info check: https://source.android.com/source/\n\
-For specific sony info: http://developer.sonymobile.com/open-devices/aosp-build-instructions/how-to-build-aosp-nougat-for-unlocked-xperia-devices/
+For specific sony info: http://developer.sonymobile.com/open-devices/aosp-build-instructions/how-to-build-aosp-nougat-for-unlocked-xperia-devices/\
 \n\
 To build AOSP, use:\n\
 - help_aosp.sh\n\
